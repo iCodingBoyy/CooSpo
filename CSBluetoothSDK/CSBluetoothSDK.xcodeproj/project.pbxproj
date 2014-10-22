@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6B68392E19EFA31900142B26 /* CSBluetoothSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6B68392D19EFA31900142B26 /* CSBluetoothSDK.h */; };
+		6B68393019EFA31900142B26 /* CSBluetoothSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68392F19EFA31900142B26 /* CSBluetoothSDK.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6B68392819EFA31900142B26 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = include;
+			dstSubfolderSpec = 16;
+			files = (
+				6B68392E19EFA31900142B26 /* CSBluetoothSDK.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6B68392A19EFA31900142B26 /* libCSBluetoothSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCSBluetoothSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B68392D19EFA31900142B26 /* CSBluetoothSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSBluetoothSDK.h; sourceTree = "<group>"; };
+		6B68392F19EFA31900142B26 /* CSBluetoothSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSBluetoothSDK.m; sourceTree = "<group>"; };
+		6B68393519EFA31900142B26 /* CSBluetoothSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSBluetoothSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B68393819EFA31900142B26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B68392719EFA31900142B26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B68393219EFA31900142B26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B68392119EFA31900142B26 = {
+			isa = PBXGroup;
+			children = (
+				6B68392C19EFA31900142B26 /* CSBluetoothSDK */,
+				6B68393619EFA31900142B26 /* CSBluetoothSDKTests */,
+				6B68392B19EFA31900142B26 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6B68392B19EFA31900142B26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6B68392A19EFA31900142B26 /* libCSBluetoothSDK.a */,
+				6B68393519EFA31900142B26 /* CSBluetoothSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6B68392C19EFA31900142B26 /* CSBluetoothSDK */ = {
+			isa = PBXGroup;
+			children = (
+				6B68392D19EFA31900142B26 /* CSBluetoothSDK.h */,
+				6B68392F19EFA31900142B26 /* CSBluetoothSDK.m */,
+			);
+			path = CSBluetoothSDK;
+			sourceTree = "<group>";
+		};
+		6B68393619EFA31900142B26 /* CSBluetoothSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				6B68393719EFA31900142B26 /* Supporting Files */,
+			);
+			path = CSBluetoothSDKTests;
+			sourceTree = "<group>";
+		};
+		6B68393719EFA31900142B26 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6B68393819EFA31900142B26 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6B68392919EFA31900142B26 /* CSBluetoothSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B68393B19EFA31900142B26 /* Build configuration list for PBXNativeTarget "CSBluetoothSDK" */;
+			buildPhases = (
+				6B68392619EFA31900142B26 /* Sources */,
+				6B68392719EFA31900142B26 /* Frameworks */,
+				6B68392819EFA31900142B26 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CSBluetoothSDK;
+			productName = CSBluetoothSDK;
+			productReference = 6B68392A19EFA31900142B26 /* libCSBluetoothSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		6B68393419EFA31900142B26 /* CSBluetoothSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B68393E19EFA31900142B26 /* Build configuration list for PBXNativeTarget "CSBluetoothSDKTests" */;
+			buildPhases = (
+				6B68393119EFA31900142B26 /* Sources */,
+				6B68393219EFA31900142B26 /* Frameworks */,
+				6B68393319EFA31900142B26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CSBluetoothSDKTests;
+			productName = CSBluetoothSDKTests;
+			productReference = 6B68393519EFA31900142B26 /* CSBluetoothSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6B68392219EFA31900142B26 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "马远征";
+				TargetAttributes = {
+					6B68392919EFA31900142B26 = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+					6B68393419EFA31900142B26 = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 6B68392519EFA31900142B26 /* Build configuration list for PBXProject "CSBluetoothSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6B68392119EFA31900142B26;
+			productRefGroup = 6B68392B19EFA31900142B26 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6B68392919EFA31900142B26 /* CSBluetoothSDK */,
+				6B68393419EFA31900142B26 /* CSBluetoothSDKTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6B68393319EFA31900142B26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6B68392619EFA31900142B26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B68393019EFA31900142B26 /* CSBluetoothSDK.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B68393119EFA31900142B26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6B68393919EFA31900142B26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6B68393A19EFA31900142B26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6B68393C19EFA31900142B26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "../CooSpoClient/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6B68393D19EFA31900142B26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "../CooSpoClient/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		6B68393F19EFA31900142B26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CSBluetoothSDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6B68394019EFA31900142B26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CSBluetoothSDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6B68392519EFA31900142B26 /* Build configuration list for PBXProject "CSBluetoothSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B68393919EFA31900142B26 /* Debug */,
+				6B68393A19EFA31900142B26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B68393B19EFA31900142B26 /* Build configuration list for PBXNativeTarget "CSBluetoothSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B68393C19EFA31900142B26 /* Debug */,
+				6B68393D19EFA31900142B26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6B68393E19EFA31900142B26 /* Build configuration list for PBXNativeTarget "CSBluetoothSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B68393F19EFA31900142B26 /* Debug */,
+				6B68394019EFA31900142B26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6B68392219EFA31900142B26 /* Project object */;
+}

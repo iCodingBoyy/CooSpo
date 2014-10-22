@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DailyGoalsEntity" representedClassName="DailyGoalsEntity" syncable="YES">
+        <attribute name="dailyGoals" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="dateTime" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RecentSynchEntity" representedClassName="RecentSynchEntity" syncable="YES">
+        <attribute name="calorie" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="steps" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="utcTime" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="SleepDataEntity" representedClassName="SleepDataEntity" syncable="YES">
+        <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sleepData" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="utcTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="SportsDataEntity" representedClassName="SportsDataEntity" syncable="YES">
+        <attribute name="calorie" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="steps" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="utcTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="SwParamsEntity" representedClassName="SwParamsEntity" syncable="YES">
+        <attribute name="aifSthreshold" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="autoSWEnable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="needUpdate" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="nmSthreshold" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="spHour" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="spMininute" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="stHour" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="stMininute" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="SynchDataEntity" representedClassName="SynchDataEntity" syncable="YES">
+        <attribute name="calorie" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="complete" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="steps" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="utcTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserInfoEntity" representedClassName="UserInfoEntity" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="goal" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="stride" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="DailyGoalsEntity" positionX="-36" positionY="54" width="128" height="75"/>
+        <element name="RecentSynchEntity" positionX="-54" positionY="36" width="128" height="105"/>
+        <element name="SleepDataEntity" positionX="18" positionY="144" width="128" height="135"/>
+        <element name="SportsDataEntity" positionX="0" positionY="117" width="128" height="150"/>
+        <element name="SwParamsEntity" positionX="-18" positionY="63" width="128" height="163"/>
+        <element name="SynchDataEntity" positionX="36" positionY="162" width="128" height="163"/>
+        <element name="UserInfoEntity" positionX="-63" positionY="-18" width="128" height="133"/>
+    </elements>
+</model>
