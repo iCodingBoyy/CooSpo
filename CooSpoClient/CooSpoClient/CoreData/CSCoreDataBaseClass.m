@@ -115,6 +115,21 @@
     return _sportsManagedObjectContext;
 }
 
+- (NSManagedObjectContext*)sReadManagedObjectContext
+{
+    if (_sReadManagedObjectContext)
+    {
+        return _sReadManagedObjectContext;
+    }
+    _sReadManagedObjectContext = [[NSManagedObjectContext alloc]init];
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator)
+    {
+        [_sReadManagedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    return _sReadManagedObjectContext;
+}
+
 
 - (NSManagedObjectContext*)backReadManagedObjectContext
 {

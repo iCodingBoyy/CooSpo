@@ -28,18 +28,15 @@
     
     // 查询目标与完成情况
     WEAKSELF;STRONGSELF;
-    [[CSCoreData shared]fetchTGoal:NO result:^(NSArray *ret, NSError *error) {
-        
+    [[CSCoreData shared]fetchLateLyGoal:YES result:^(NSDictionary *ret, NSError *error) {
         NSUInteger steps = 100000;
-        if (ret && ret.count > 0)
+        if (ret)
         {
-            NSDictionary *dict = [ret lastObject];
-            if (dict)
-            {
-                steps = [dict[@"dailyGoals"] integerValue];
-            }
+            steps = [ret[@"dailyGoals"] integerValue];
         }
-        [strongSelf.textfield setText:[NSString stringWithFormat:@"%ld",(unsigned long)steps]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [strongSelf.textfield setText:[NSString stringWithFormat:@"%ld",(unsigned long)steps]];
+        });
     }];
 }
 

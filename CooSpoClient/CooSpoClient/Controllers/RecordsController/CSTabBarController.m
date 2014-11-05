@@ -148,7 +148,6 @@ static const NSInteger TAG_OFFSET = 1000;
     CSSleepViewController *sleepVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CSSleepViewController"];
     NSArray *array = @[synchVC,sportsVC,sleepVC];
     self.viewControllers = array;
-//    NSLog(@"---synchVC--%@",self.viewControllers);
 }
 
 

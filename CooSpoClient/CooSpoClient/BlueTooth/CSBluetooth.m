@@ -7,52 +7,37 @@
 //
 
 #import "CSBluetooth.h"
-#import "CooSpoDefine.h"
+
 
 @implementation CSBluetooth
 
 - (void)didReceiveSynchData:(UInt32)steps distance:(UInt32)distance calorie:(UInt32)calorie utcTime:(UInt32)utcTime
 {
-    [super didReceiveSynchData:steps distance:distance calorie:calorie utcTime:utcTime];
-    
+    DEBUG_METHOD(@"-----{\n steps:%u \n distance:%u \n calorie:%u \n }",(unsigned int)steps,(unsigned int)distance,(unsigned int)calorie);
     dispatch_async(dispatch_get_main_queue(), ^{
+        // 存储最后同步时间
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setValue:@(utcTime) forKey:@"lastSynch.utcTime"];
+        [userDefaults synchronize];
         
-        NSDictionary *retdic = [[CSCoreData shared]fetchLastGoal:NO result:nil];
-        NSLog(@"----retdic--%@",retdic);
-        
-        NSUInteger goals = (retdic == nil) ? 100000:[retdic[@"goal"]unsignedIntegerValue];
-        BOOL complete = (steps >= goals ? YES:NO);
-        
-        NSDictionary *params = @{@"steps":@(steps),@"distance":@(distance),@"calorie":@(calorie),@"utcTime":@(utcTime),@"complete":@(complete)};
-        
-        [[CSCoreData shared]insertOrUpdateDailySynchRecord:params];
-        [[CSCoreData shared]insertOrUpdateLastSynchRecord:params];
-        
-        // 通知UI更新部分数据
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"Event_LastSynch_Time_Update_Notify" object:nil];
     });
 }
 
-- (void)didReceiveSportsData:(NSData *)sportsData utcTime:(UInt32)utcTime
+- (void)didReceiveSportsPackage:(NSMutableArray*)dataArray
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[CSCoreData shared]insertNewSportData:sportsData utcTime:utcTime];
-    });
+    [[CSCoreData shared]insertNewSportData:dataArray];
 }
 
-- (void)didReceiveSleepData:(NSData *)sleepData utcTime:(UInt32)utcTime
+- (void)didReceiveSleepPackage:(NSMutableArray*)dataArray
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[CSCoreData shared]insertNewSleepData:sleepData utcTime:utcTime];
-    });
+    [[CSCoreData shared]insertNewSleepData:dataArray];
 }
 
 - (void)didReceiveUserInfo:(NSMutableDictionary *)params
 {
-    [super didReceiveUserInfo:params];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[CSCoreData shared]insertOrUpdateUserInfo:params];
-    });
+    DEBUG_METHOD(@"----%s---[%@]",__FUNCTION__,params);
+    [[CSCoreData shared]insertOrUpdateUserInfo:params];
 }
 
 - (BOOL)shouldSynchUpdateUTCTime
@@ -62,21 +47,25 @@
 
 - (NSDictionary*)subClassFetchUserInfo
 {
-    DEBUG_METHOD(@"---subClassFetchUserInfo--%@",[NSThread currentThread]);
     return [[CSCoreData shared]fetchUserInfo:NO result:nil];
 }
 
 
 - (NSDictionary*)subClassFetchSWParams
 {
-    DEBUG_METHOD(@"---subClassFetchSWParams--%@",[NSThread currentThread]);
     return [[CSCoreData shared]fetchSwParams:NO result:nil];
 }
 
 - (void)didSuccessUpdateSWParams
 {
-    DEBUG_METHOD(@"---didSuccessUpdateSWParams--%@",[NSThread currentThread]);
     [[CSCoreData shared]insertOrUpdateSwParams:@{@"needUpdate":@(NO)}];
+}
+
+
+
+- (void)initialize
+{
+    [[CSCoreData shared]initializeDefaultParams];
 }
 
 - (void)completeTransmission:(dispatch_block_t)block
@@ -84,20 +73,12 @@
     _completeBlock = block;
 }
 
-- (void)initialize
-{
-    [[CSCoreData shared]initializeDefaultParams];
-}
-
 - (void)didCompleteBluetoothDataTransmission
 {
-    DEBUG_METHOD(@"---%s--",__FUNCTION__);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (_completeBlock)
-        {
-            _completeBlock();
-        }
-    });
+    if (_completeBlock)
+    {
+        _completeBlock();
+    }
 }
 
 @end

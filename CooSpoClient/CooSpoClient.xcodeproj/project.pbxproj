@@ -13,8 +13,6 @@
 		6B68390419EF6F8F00142B26 /* CSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B68390219EF6F8F00142B26 /* CSDataModel.xcdatamodeld */; };
 		6B68390719EF744500142B26 /* NSManagedObjectContext+Package.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68390619EF744500142B26 /* NSManagedObjectContext+Package.m */; };
 		6B68390D19EF7BD000142B26 /* UserInfoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68390C19EF7BD000142B26 /* UserInfoEntity.m */; };
-		6B68391319EF7BD000142B26 /* RecentSynchEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68391219EF7BD000142B26 /* RecentSynchEntity.m */; };
-		6B68391619EF7BD000142B26 /* DailyGoalsEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68391519EF7BD000142B26 /* DailyGoalsEntity.m */; };
 		6B68391919EF7BD000142B26 /* SwParamsEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68391819EF7BD000142B26 /* SwParamsEntity.m */; };
 		6B68391C19EF7BD000142B26 /* SleepDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68391B19EF7BD000142B26 /* SleepDataEntity.m */; };
 		6B68392019EF7C0E00142B26 /* CSCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68391F19EF7C0E00142B26 /* CSCoreData.m */; };
@@ -43,6 +41,12 @@
 		6B68397719EFCE1A00142B26 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6B68396119EFCE1900142B26 /* iTunesArtwork@2x */; };
 		6B68397A19EFD14A00142B26 /* nav_back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B68397819EFD14A00142B26 /* nav_back_btn@2x.png */; };
 		6B68397B19EFD14A00142B26 /* nav_back_gray_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B68397919EFD14A00142B26 /* nav_back_gray_btn@2x.png */; };
+		6B78975D19F8ADC80053848B /* SportsDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B78975C19F8ADC80053848B /* SportsDataEntity.m */; };
+		6B78976319F8E6450053848B /* CSRSportsGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B78976219F8E6450053848B /* CSRSportsGraphView.m */; };
+		6B8FB33019F9F81300EC0A77 /* DailyGoalsEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8FB32F19F9F81300EC0A77 /* DailyGoalsEntity.m */; };
+		6B98F4A119FDF15300039296 /* CSRSleepTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B98F4A019FDF15300039296 /* CSRSleepTableViewCell.m */; };
+		6B98F4A419FDFAB000039296 /* CSRSleepContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B98F4A319FDFAB000039296 /* CSRSleepContentView.m */; };
+		6B98F4A719FE00B500039296 /* CSRSleepGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B98F4A619FE00B500039296 /* CSRSleepGraphView.m */; };
 		6BA8069F19F0B63B003D69B1 /* nav_check_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8069D19F0B63B003D69B1 /* nav_check_btn@2x.png */; };
 		6BA806A019F0B63B003D69B1 /* nav_side_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8069E19F0B63B003D69B1 /* nav_side_btn@2x.png */; };
 		6BA806A719F0B7E2003D69B1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806A319F0B7E2003D69B1 /* MBProgressHUD.m */; };
@@ -50,14 +54,13 @@
 		6BA806A919F0B7E2003D69B1 /* YZProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806A619F0B7E2003D69B1 /* YZProgressHUD.m */; };
 		6BA806AC19F0C47D003D69B1 /* CSActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806AB19F0C47D003D69B1 /* CSActionSheet.m */; };
 		6BA806AE19F0CBAC003D69B1 /* cs_actionsheet_bg_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA806AD19F0CBAC003D69B1 /* cs_actionsheet_bg_image@2x.png */; };
-		6BA806B119F0E9E1003D69B1 /* SynchDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806B019F0E9E1003D69B1 /* SynchDataEntity.m */; };
 		6BA806B419F0F0F5003D69B1 /* CSSportsDataOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806B319F0F0F5003D69B1 /* CSSportsDataOperation.m */; };
 		6BA806B719F0F10C003D69B1 /* CSSleepDataOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806B619F0F10C003D69B1 /* CSSleepDataOperation.m */; };
-		6BA806BA19F0F698003D69B1 /* SportsDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806B919F0F698003D69B1 /* SportsDataEntity.m */; };
 		6BA806BD19F1100A003D69B1 /* CSRSportsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806BC19F1100A003D69B1 /* CSRSportsTableViewCell.m */; };
 		6BA806C219F110F0003D69B1 /* CSRSportsContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA806C119F110F0003D69B1 /* CSRSportsContentView.m */; };
 		6BA806C519F11362003D69B1 /* cs_mark_color_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA806C319F11362003D69B1 /* cs_mark_color_image@2x.png */; };
 		6BA806C619F11362003D69B1 /* cs_mark_deep_color_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA806C419F11362003D69B1 /* cs_mark_deep_color_image@2x.png */; };
+		6BB66AE81A077C3E00D22C2F /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6BB66AE71A077C3E00D22C2F /* default.jpg */; };
 		6BB7C68019EE556200124625 /* CSProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB7C67F19EE556200124625 /* CSProfileTableViewCell.m */; };
 		6BB7C68219EE58C300124625 /* cs_btn_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BB7C68119EE58C300124625 /* cs_btn_image@2x.png */; };
 		6BB7C68519EE5EAA00124625 /* CSSleepTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB7C68419EE5EAA00124625 /* CSSleepTimeViewController.m */; };
@@ -123,10 +126,6 @@
 		6B68390619EF744500142B26 /* NSManagedObjectContext+Package.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Package.m"; sourceTree = "<group>"; };
 		6B68390B19EF7BD000142B26 /* UserInfoEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoEntity.h; sourceTree = "<group>"; };
 		6B68390C19EF7BD000142B26 /* UserInfoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoEntity.m; sourceTree = "<group>"; };
-		6B68391119EF7BD000142B26 /* RecentSynchEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentSynchEntity.h; sourceTree = "<group>"; };
-		6B68391219EF7BD000142B26 /* RecentSynchEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSynchEntity.m; sourceTree = "<group>"; };
-		6B68391419EF7BD000142B26 /* DailyGoalsEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyGoalsEntity.h; sourceTree = "<group>"; };
-		6B68391519EF7BD000142B26 /* DailyGoalsEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyGoalsEntity.m; sourceTree = "<group>"; };
 		6B68391719EF7BD000142B26 /* SwParamsEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwParamsEntity.h; sourceTree = "<group>"; };
 		6B68391819EF7BD000142B26 /* SwParamsEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwParamsEntity.m; sourceTree = "<group>"; };
 		6B68391A19EF7BD000142B26 /* SleepDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleepDataEntity.h; sourceTree = "<group>"; };
@@ -159,6 +158,18 @@
 		6B68396119EFCE1900142B26 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6B68397819EFD14A00142B26 /* nav_back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn@2x.png"; sourceTree = "<group>"; };
 		6B68397919EFD14A00142B26 /* nav_back_gray_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_gray_btn@2x.png"; sourceTree = "<group>"; };
+		6B78975B19F8ADC80053848B /* SportsDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsDataEntity.h; sourceTree = "<group>"; };
+		6B78975C19F8ADC80053848B /* SportsDataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsDataEntity.m; sourceTree = "<group>"; };
+		6B78976119F8E6450053848B /* CSRSportsGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRSportsGraphView.h; sourceTree = "<group>"; };
+		6B78976219F8E6450053848B /* CSRSportsGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRSportsGraphView.m; sourceTree = "<group>"; };
+		6B8FB32E19F9F81300EC0A77 /* DailyGoalsEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyGoalsEntity.h; sourceTree = "<group>"; };
+		6B8FB32F19F9F81300EC0A77 /* DailyGoalsEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyGoalsEntity.m; sourceTree = "<group>"; };
+		6B98F49F19FDF15300039296 /* CSRSleepTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRSleepTableViewCell.h; sourceTree = "<group>"; };
+		6B98F4A019FDF15300039296 /* CSRSleepTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRSleepTableViewCell.m; sourceTree = "<group>"; };
+		6B98F4A219FDFAB000039296 /* CSRSleepContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRSleepContentView.h; sourceTree = "<group>"; };
+		6B98F4A319FDFAB000039296 /* CSRSleepContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRSleepContentView.m; sourceTree = "<group>"; };
+		6B98F4A519FE00B500039296 /* CSRSleepGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRSleepGraphView.h; sourceTree = "<group>"; };
+		6B98F4A619FE00B500039296 /* CSRSleepGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRSleepGraphView.m; sourceTree = "<group>"; };
 		6BA8069D19F0B63B003D69B1 /* nav_check_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_check_btn@2x.png"; sourceTree = "<group>"; };
 		6BA8069E19F0B63B003D69B1 /* nav_side_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_side_btn@2x.png"; sourceTree = "<group>"; };
 		6BA806A219F0B7E2003D69B1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -169,20 +180,17 @@
 		6BA806AA19F0C47D003D69B1 /* CSActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSActionSheet.h; sourceTree = "<group>"; };
 		6BA806AB19F0C47D003D69B1 /* CSActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSActionSheet.m; sourceTree = "<group>"; };
 		6BA806AD19F0CBAC003D69B1 /* cs_actionsheet_bg_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cs_actionsheet_bg_image@2x.png"; sourceTree = "<group>"; };
-		6BA806AF19F0E9E1003D69B1 /* SynchDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchDataEntity.h; sourceTree = "<group>"; };
-		6BA806B019F0E9E1003D69B1 /* SynchDataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynchDataEntity.m; sourceTree = "<group>"; };
 		6BA806B219F0F0F5003D69B1 /* CSSportsDataOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSportsDataOperation.h; sourceTree = "<group>"; };
 		6BA806B319F0F0F5003D69B1 /* CSSportsDataOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSportsDataOperation.m; sourceTree = "<group>"; };
 		6BA806B519F0F10C003D69B1 /* CSSleepDataOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSleepDataOperation.h; sourceTree = "<group>"; };
 		6BA806B619F0F10C003D69B1 /* CSSleepDataOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSleepDataOperation.m; sourceTree = "<group>"; };
-		6BA806B819F0F698003D69B1 /* SportsDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsDataEntity.h; sourceTree = "<group>"; };
-		6BA806B919F0F698003D69B1 /* SportsDataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsDataEntity.m; sourceTree = "<group>"; };
 		6BA806BB19F1100A003D69B1 /* CSRSportsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRSportsTableViewCell.h; sourceTree = "<group>"; };
 		6BA806BC19F1100A003D69B1 /* CSRSportsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRSportsTableViewCell.m; sourceTree = "<group>"; };
 		6BA806C019F110F0003D69B1 /* CSRSportsContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRSportsContentView.h; sourceTree = "<group>"; };
 		6BA806C119F110F0003D69B1 /* CSRSportsContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRSportsContentView.m; sourceTree = "<group>"; };
 		6BA806C319F11362003D69B1 /* cs_mark_color_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cs_mark_color_image@2x.png"; sourceTree = "<group>"; };
 		6BA806C419F11362003D69B1 /* cs_mark_deep_color_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cs_mark_deep_color_image@2x.png"; sourceTree = "<group>"; };
+		6BB66AE71A077C3E00D22C2F /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
 		6BB7C67E19EE556200124625 /* CSProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSProfileTableViewCell.h; sourceTree = "<group>"; };
 		6BB7C67F19EE556200124625 /* CSProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSProfileTableViewCell.m; sourceTree = "<group>"; };
 		6BB7C68119EE58C300124625 /* cs_btn_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cs_btn_image@2x.png"; sourceTree = "<group>"; };
@@ -328,20 +336,16 @@
 		6B68391D19EF7BD400142B26 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				6BA806AF19F0E9E1003D69B1 /* SynchDataEntity.h */,
-				6BA806B019F0E9E1003D69B1 /* SynchDataEntity.m */,
 				6B68391A19EF7BD000142B26 /* SleepDataEntity.h */,
 				6B68391B19EF7BD000142B26 /* SleepDataEntity.m */,
+				6B78975B19F8ADC80053848B /* SportsDataEntity.h */,
+				6B78975C19F8ADC80053848B /* SportsDataEntity.m */,
 				6B68391719EF7BD000142B26 /* SwParamsEntity.h */,
 				6B68391819EF7BD000142B26 /* SwParamsEntity.m */,
-				6B68391419EF7BD000142B26 /* DailyGoalsEntity.h */,
-				6B68391519EF7BD000142B26 /* DailyGoalsEntity.m */,
-				6B68391119EF7BD000142B26 /* RecentSynchEntity.h */,
-				6B68391219EF7BD000142B26 /* RecentSynchEntity.m */,
+				6B8FB32E19F9F81300EC0A77 /* DailyGoalsEntity.h */,
+				6B8FB32F19F9F81300EC0A77 /* DailyGoalsEntity.m */,
 				6B68390B19EF7BD000142B26 /* UserInfoEntity.h */,
 				6B68390C19EF7BD000142B26 /* UserInfoEntity.m */,
-				6BA806B819F0F698003D69B1 /* SportsDataEntity.h */,
-				6BA806B919F0F698003D69B1 /* SportsDataEntity.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -381,6 +385,43 @@
 			path = icon;
 			sourceTree = SOURCE_ROOT;
 		};
+		6B98F49C19FDF0D800039296 /* SportsView */ = {
+			isa = PBXGroup;
+			children = (
+				6BA806BB19F1100A003D69B1 /* CSRSportsTableViewCell.h */,
+				6BA806BC19F1100A003D69B1 /* CSRSportsTableViewCell.m */,
+				6BA806C019F110F0003D69B1 /* CSRSportsContentView.h */,
+				6BA806C119F110F0003D69B1 /* CSRSportsContentView.m */,
+				6B78976119F8E6450053848B /* CSRSportsGraphView.h */,
+				6B78976219F8E6450053848B /* CSRSportsGraphView.m */,
+			);
+			name = SportsView;
+			sourceTree = "<group>";
+		};
+		6B98F49D19FDF0E600039296 /* SynchView */ = {
+			isa = PBXGroup;
+			children = (
+				6BC7963D19EE2255003FFA1A /* CSRSynchCellContentView.h */,
+				6BC7963E19EE2255003FFA1A /* CSRSynchCellContentView.m */,
+				6BC7963A19EE1D6A003FFA1A /* CSRSynchTableViewCell.h */,
+				6BC7963B19EE1D6A003FFA1A /* CSRSynchTableViewCell.m */,
+			);
+			name = SynchView;
+			sourceTree = "<group>";
+		};
+		6B98F49E19FDF0F400039296 /* SleepView */ = {
+			isa = PBXGroup;
+			children = (
+				6B98F49F19FDF15300039296 /* CSRSleepTableViewCell.h */,
+				6B98F4A019FDF15300039296 /* CSRSleepTableViewCell.m */,
+				6B98F4A219FDFAB000039296 /* CSRSleepContentView.h */,
+				6B98F4A319FDFAB000039296 /* CSRSleepContentView.m */,
+				6B98F4A519FE00B500039296 /* CSRSleepGraphView.h */,
+				6B98F4A619FE00B500039296 /* CSRSleepGraphView.m */,
+			);
+			name = SleepView;
+			sourceTree = "<group>";
+		};
 		6BA806A119F0B7E2003D69B1 /* progressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,14 +437,9 @@
 		6BA806BE19F110A6003D69B1 /* RecordCellView */ = {
 			isa = PBXGroup;
 			children = (
-				6BA806BB19F1100A003D69B1 /* CSRSportsTableViewCell.h */,
-				6BA806BC19F1100A003D69B1 /* CSRSportsTableViewCell.m */,
-				6BA806C019F110F0003D69B1 /* CSRSportsContentView.h */,
-				6BA806C119F110F0003D69B1 /* CSRSportsContentView.m */,
-				6BC7963D19EE2255003FFA1A /* CSRSynchCellContentView.h */,
-				6BC7963E19EE2255003FFA1A /* CSRSynchCellContentView.m */,
-				6BC7963A19EE1D6A003FFA1A /* CSRSynchTableViewCell.h */,
-				6BC7963B19EE1D6A003FFA1A /* CSRSynchTableViewCell.m */,
+				6B98F49E19FDF0F400039296 /* SleepView */,
+				6B98F49D19FDF0E600039296 /* SynchView */,
+				6B98F49C19FDF0D800039296 /* SportsView */,
 			);
 			name = RecordCellView;
 			sourceTree = "<group>";
@@ -464,6 +500,7 @@
 		6BC1DAFF19E81E6E00CCAC51 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6BB66AE71A077C3E00D22C2F /* default.jpg */,
 				6B68394E19EFCE1900142B26 /* icon */,
 				6BC1DB0019E81E6E00CCAC51 /* Info.plist */,
 				6BC1DB0119E81E6E00CCAC51 /* main.m */,
@@ -773,6 +810,7 @@
 				6BB7C69C19EE747D00124625 /* cs_calories_icon_gray@2x.png in Resources */,
 				6BC1EE9C19E8E983006D2F58 /* menu_cell_update_image@2x.png in Resources */,
 				6BC1DB7719E825D100CCAC51 /* nav_bg_image_ios7@2x.png in Resources */,
+				6BB66AE81A077C3E00D22C2F /* default.jpg in Resources */,
 				6BB7C69E19EE747D00124625 /* cs_hline_image@2x.png in Resources */,
 				6B68396919EFCE1A00142B26 /* Icon-60@2x.png in Resources */,
 				6BA806AE19F0CBAC003D69B1 /* cs_actionsheet_bg_image@2x.png in Resources */,
@@ -815,16 +853,17 @@
 			files = (
 				6BC1DB6019E8202D00CCAC51 /* CSSideController.m in Sources */,
 				6B68390719EF744500142B26 /* NSManagedObjectContext+Package.m in Sources */,
-				6B68391319EF7BD000142B26 /* RecentSynchEntity.m in Sources */,
 				6BB7C68019EE556200124625 /* CSProfileTableViewCell.m in Sources */,
 				6BC1DB6419E821FC00CCAC51 /* UIViewController+CSSide.m in Sources */,
 				6BC1EEB519E8ECDE006D2F58 /* CSAboutViewController.m in Sources */,
 				6BC1EEA419E8EBFD006D2F58 /* CSSynchViewController.m in Sources */,
 				6BC1EEAD19E8EC72006D2F58 /* CSSportsViewController.m in Sources */,
-				6BA806BA19F0F698003D69B1 /* SportsDataEntity.m in Sources */,
 				6B68394419EFA61100142B26 /* CSBluetooth.m in Sources */,
+				6B78975D19F8ADC80053848B /* SportsDataEntity.m in Sources */,
+				6B98F4A719FE00B500039296 /* CSRSleepGraphView.m in Sources */,
 				6BC1EEAA19E8EC21006D2F58 /* CSSleepViewController.m in Sources */,
 				6BB7C68E19EE65A000124625 /* CSTotalSumView.m in Sources */,
+				6B8FB33019F9F81300EC0A77 /* DailyGoalsEntity.m in Sources */,
 				6BC7963F19EE2255003FFA1A /* CSRSynchCellContentView.m in Sources */,
 				6BC1DB7319E8236700CCAC51 /* CooSpoViewController.m in Sources */,
 				6B68390D19EF7BD000142B26 /* UserInfoEntity.m in Sources */,
@@ -836,10 +875,9 @@
 				6B68391C19EF7BD000142B26 /* SleepDataEntity.m in Sources */,
 				6B68390419EF6F8F00142B26 /* CSDataModel.xcdatamodeld in Sources */,
 				6BA806A919F0B7E2003D69B1 /* YZProgressHUD.m in Sources */,
-				6BA806B119F0E9E1003D69B1 /* SynchDataEntity.m in Sources */,
 				6BC7963419EE0FEF003FFA1A /* CSAlertView.m in Sources */,
 				6BC1DB6819E8227C00CCAC51 /* CSMenuController.m in Sources */,
-				6B68391619EF7BD000142B26 /* DailyGoalsEntity.m in Sources */,
+				6B78976319F8E6450053848B /* CSRSportsGraphView.m in Sources */,
 				6BA806AC19F0C47D003D69B1 /* CSActionSheet.m in Sources */,
 				6BA806A719F0B7E2003D69B1 /* MBProgressHUD.m in Sources */,
 				6B68392019EF7C0E00142B26 /* CSCoreData.m in Sources */,
@@ -849,9 +887,11 @@
 				6BC1DB6C19E822BF00CCAC51 /* CSNavigationController.m in Sources */,
 				6BC1DB8019E82CF600CCAC51 /* CSMenuTableViewCell.m in Sources */,
 				6B68391919EF7BD000142B26 /* SwParamsEntity.m in Sources */,
+				6B98F4A119FDF15300039296 /* CSRSleepTableViewCell.m in Sources */,
 				6BB7C68519EE5EAA00124625 /* CSSleepTimeViewController.m in Sources */,
 				6BC1EEB919E8FAB6006D2F58 /* CSTabBarController.m in Sources */,
 				6BC1DB0219E81E6E00CCAC51 /* main.m in Sources */,
+				6B98F4A419FDFAB000039296 /* CSRSleepContentView.m in Sources */,
 				6BA806B719F0F10C003D69B1 /* CSSleepDataOperation.m in Sources */,
 				6BB7C69119EE686A00124625 /* CSFinishGoalsView.m in Sources */,
 				6BC1EEA019E8EB6D006D2F58 /* CSTGoalViewController.m in Sources */,
@@ -986,8 +1026,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Savvy Technology Co., Ltd. (Y95274J6CS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Savvy Technology Co., Ltd. (Y95274J6CS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Savvy Technology Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Savvy Technology Co., Ltd";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include",
@@ -1001,7 +1041,7 @@
 					"$(PROJECT_DIR)/lib/Debug-iphoneos",
 				);
 				PRODUCT_NAME = CooSpo;
-				PROVISIONING_PROFILE = "7984ff20-0479-4651-9f54-63b045dd89d9";
+				PROVISIONING_PROFILE = "FFC34CE5-EF80-42AF-AAA1-F05096BAA982";
 			};
 			name = Release;
 		};

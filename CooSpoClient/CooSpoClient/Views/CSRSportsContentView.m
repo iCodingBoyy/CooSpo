@@ -20,14 +20,23 @@
     return self;
 }
 
+- (void)setDateString:(NSString *)dateString
+{
+    if (dateString != _dateString)
+    {
+        _dateString = dateString;
+        [self setNeedsDisplay];
+    }
+}
+
 - (void)drawRect:(CGRect)rect
 {
     // 绘制日期
+    if (_dateString)
     {
         [[UIColor blackColor]set];
-        NSString *date = @"2014年9月27日";
         UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];
-        [date drawAtPoint:CGPointMake(10, 10) withFont:font];
+        [_dateString drawAtPoint:CGPointMake(10, 10) withFont:font];
     }
     // 绘制说明标记
     {
@@ -45,6 +54,39 @@
         
         image = [UIImage imageNamed:@"cs_mark_color_image"];
         [image drawAtPoint:CGPointMake(rect.size.width - 100, 13)];
+    }
+    
+    // 绘制单位
+    {
+        [[UIColor blackColor]set];
+        NSString *drawString = @"(步数)";
+        UIFont *font = [UIFont fontWithName:@"Helvetica" size:11];
+        [drawString drawAtPoint:CGPointMake(10, 30) withFont:font];
+        
+        drawString = @"(千卡)";
+        [drawString drawAtPoint:CGPointMake(rect.size.width - 40, 30) withFont:font];
+    }
+    
+    // 绘制刻度值
+    {
+        [[UIColor colorWithRed:0.443 green:0.627 blue:0.651 alpha:1.0]set];
+        UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
+        NSArray *array = @[@"3000",@"2400",@"1800",@"1200",@"600",@"0"];
+        for (int i = 0; i < array.count; i++)
+        {
+            NSString *drawString = [array objectAtIndex:i];
+            CGSize size = [drawString sizeWithFont:font];
+            [drawString drawAtPoint:CGPointMake(33-size.width, 53+30*i) withFont:font];
+        }
+        
+        
+        [[UIColor colorWithRed:0.180 green:0.357 blue:0.388 alpha:1.0]set];
+        array = @[@"500",@"400",@"300",@"200",@"100",@"0"];
+        for (int i = 0; i < array.count; i++)
+        {
+            NSString *drawString = [array objectAtIndex:i];
+            [drawString drawAtPoint:CGPointMake(rect.size.width-33, 53+30*i) withFont:font];
+        }
     }
     
     // 绘制虚线

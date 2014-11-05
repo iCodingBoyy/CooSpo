@@ -26,15 +26,17 @@ static NSString * const kReadCharacteristicUUID = @"FC20";
 static NSString * const kWriteCharacteristicUUID = @"FC21";
 
 @interface CSBluetoothSDK() <CBCentralManagerDelegate,CBPeripheralDelegate>
-@property (nonatomic) CBCharacteristic *writeCharacteristic;
 @property (nonatomic) dispatch_queue_t operationQueue;
+
+@property (nonatomic, strong) CBCharacteristic *writeCharacteristic;
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *servicePeripheral;
 @property (nonatomic, assign) BOOL isBluetoothEnable;
-@property (nonatomic, assign) UInt32 sportsDataUtcTime;
-@property (nonatomic, assign) UInt32 sleepDataUtcTime;
-
 @property (nonatomic, copy) BluetoothStatusBlock bleSBlock;
+
+@property (nonatomic, strong) NSMutableArray *packetArray;
+@property (nonatomic, assign) UInt32 utcTime;// 用于校验包是否重发
+@property (nonatomic, strong) NSNumber *serialNum;
 @end
 
 @implementation CSBluetoothSDK
@@ -46,6 +48,15 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
         sharedinstance = [[self alloc] init];
     });
     return sharedinstance;
+}
+
+- (NSMutableArray*)packetArray
+{
+    if (_packetArray == nil)
+    {
+        _packetArray = [[NSMutableArray alloc]init];
+    }
+    return _packetArray;
 }
 
 - (id)init
@@ -141,11 +152,11 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
 {
     
 #ifdef DEBUG
-    NSString *UUID1 = CFBridgingRelease(CFUUIDCreateString(NULL, peripheral.UUID));
-    DEBUG_METHOD(@"----发现外设----%@",UUID1);
+//    NSString *UUID1 = CFBridgingRelease(CFUUIDCreateString(NULL, peripheral.UUID));
+//    DEBUG_METHOD(@"----发现外设----%@",UUID1);
 #endif
     
-    if ( _servicePeripheral != peripheral && [peripheral.name isEqualToString:@"Oone"] )
+    if ( _servicePeripheral != peripheral && ([peripheral.name isEqualToString:@"Oone"] ||[peripheral.name isEqualToString:@"COOBIT"]))
     {
         _servicePeripheral = peripheral;
         DEBUG_METHOD(@"Connecting to peripheral %@", peripheral);
@@ -177,6 +188,7 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
     _servicePeripheral = nil;
     [self updateBleStatus:BluetoothStatusDisConnect];
     [self cleanup];
+    [self.packetArray removeAllObjects];
 }
 
 #pragma mark -
@@ -275,7 +287,6 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
             DEBUG_METHOD(@"--0xd1--Packet for inquire user info---");
             if ( ![self resultOfCheckSum:cValue length:data.length] )
             {
-                DEBUG_METHOD(@"----【%s】-0xd1-检验和出错----",__FUNCTION__);
                 [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x01];
             }
             else
@@ -295,7 +306,9 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
                     ackValue[6] = [swParams[@"nmSthreshold"]intValue];
                     ackValue[7] = [swParams[@"aifSthreshold"]intValue];
                     ackValue[8] = ackValue[0]+ackValue[1]+ackValue[2]+ackValue[3]+ackValue[4]+ackValue[5]+ackValue[6]+ackValue[7];
+                    
                     [self didSuccessUpdateSWParams];
+                    
                     NSData *data = [NSData dataWithBytes:&ackValue length:sizeof(ackValue)];
                     [peripheral writeValue:data forCharacteristic:_writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
                     return;
@@ -307,6 +320,7 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
                 int stride = cValue[11];
                 int sex = cValue[12];
                 int target = (cValue[13]<<16)  + (cValue[14]<<8) + cValue[15];
+                DEBUG_METHOD(@"--年龄[%d]-\n-性别[%d]-\n-身高[%d]-\n-体重[%d]-\n-目标[%d]-\n-步距[%d]-\n-",age,sex,height,weight,target,stride);
                 NSDictionary *userInfoParams = [self subClassFetchUserInfo];
                 if (userInfoParams == nil)
                 {
@@ -316,7 +330,7 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
                     [userInfo setObject:@(height) forKey:@"height"];
                     [userInfo setObject:@(stride) forKey:@"stride"];
                     [userInfo setObject:@(sex)    forKey:@"sex"];
-                    [userInfo setObject:@(target) forKey:@"target"];
+                    [userInfo setObject:@(target) forKey:@"goal"];
                     [self didReceiveUserInfo:userInfo];
                     [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
                 }
@@ -327,7 +341,8 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
                     int nHeight = [userInfoParams[@"height"] intValue];
                     int nStride = [userInfoParams[@"stride"] intValue];
                     int nWeight = [userInfoParams[@"weight"] intValue];
-                    int ntarget = [userInfoParams[@"target"] intValue];
+                    int ntarget = [userInfoParams[@"goal"] intValue];
+                    
                     if (nWeight == weight && nHeight == height && nStride == stride && nSex == sex && ntarget == target && nAge == age)
                     {
                         [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
@@ -359,7 +374,6 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
             DEBUG_METHOD(@"--0xd2--Packet for asking or UTC sync----");
             if ( ![self resultOfCheckSum:cValue length:data.length] )
             {
-                DEBUG_METHOD(@"----【%s】-0xd2-检验和出错----",__FUNCTION__);
                 [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x01];
             }
             else
@@ -398,82 +412,188 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
             DEBUG_METHOD(@"--0xd3--Packet for asking or UTC sync----");
             if ( ![self resultOfCheckSum:cValue length:data.length])
             {
-                DEBUG_STR(@"----【%s】-0xd3-检验和出错----",__FUNCTION__);
                 [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x01];
             }
             else
             {
+                self.serialNum = @( (cValue[0] & 0xf0 ) >> 4); // 提取0x-3包的序号
                 UInt32 UTCTime = (cValue[1]<<24) + (cValue[2]<<16) + (cValue[3]<<8) + cValue[4];
                 UInt32 steps = (cValue[5]<<16) + (cValue[6]<<8) + cValue[7];
                 UInt32 distance = (cValue[8]<<16) +(cValue[9]<<8) + cValue[10];
                 UInt32 calorie = (cValue[11]<<16) + (cValue[12]<<8) + cValue[13];
                 
-                DEBUG_METHOD(@"------UTC时间---%lu",(unsigned long)UTCTime);
+                DEBUG_METHOD(@"------UTC时间---%@",[NSDate dateWithTimeIntervalSince1970:UTCTime]);
                 [self didReceiveSynchData:steps distance:distance calorie:calorie utcTime:UTCTime];
                 [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
             }
         }
         
-        /* Packets for every 15 min(maximun)*/
-        if( (cValue[0] & 0x0f) == 0x04 )
+        /* Packets for every 15 min(maximun)*/ /* Packet for sleeping data*/
+        if( (cValue[0] & 0x0f) == 0x04 || (cValue[0] & 0x0f) == 0x05 )
         {
-            DEBUG_METHOD(@"--0xd4--Packets for every 15 min(maximun)----%@",characteristic.value);
-            if ( ![self resultOfCheckSum:cValue length:data.length] )
+            if ((cValue[0] & 0x0f) == 0x04)
             {
-                DEBUG_STR(@"----【%s】-0xd4-检验和出错----",__FUNCTION__);
-                [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x01];
+                DEBUG_METHOD(@"--0xd4--Packets for every 15 min(maximun)----%@",characteristic.value);
             }
             else
             {
-                if (cValue[1] == 0x03)
+                DEBUG_METHOD(@"--0xd5---Packet for sleeping data----%@",characteristic.value);
+            }
+            
+            if (cValue[1] == 0x03)
+            {
+                int serialNo =  (cValue[0] & 0xf0 ) >> 4;// 0x03包得序号
+                Byte hByte = ((cValue[0] & 0xf0) >> 4);
+                int packets = cValue[2]; // 收到的数据包数
+                DEBUG_METHOD(@"-packets[%d]--Num[%d]-",packets,self.packetArray.count);
+                if ( ![self resultOfCheckSum:cValue length:data.length] )
                 {
-                    [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
+                    DEBUG_METHOD(@"---0x03校验和出错---");
+                    if (self.packetArray.count > 0)
+                    {
+                        [self.packetArray removeAllObjects];
+                    }
+                    [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x01];
+                    return;
                 }
                 
-                if (cValue[1] == 0x01 || cValue[1] == 0x02)
+                // 检查下一包的uct时间和上一包的utc时间是否相等，相等则是重复的包
+                if (self.packetArray.count > 0)
                 {
-                    if ( cValue[1] == 0x01 )
-                    {
-                        _sportsDataUtcTime =  (cValue[2]<<24) + (cValue[3]<<16) + (cValue[4]<<8) + cValue[5];
-                    }
+                    NSData *data = (NSData*)[self.packetArray firstObject];
+                    Byte value[100] = {0};
+                    [data getBytes:&value length:data.length];
                     
-                    if ( cValue[1] == 0x02 )
+                    if (value[1] == 0x01)
                     {
-                        _sportsDataUtcTime += 6*60;
+                        UInt32 utcTime_ = (value[2]<<24) + (value[3]<<16) + (value[4]<<8) + value[5];
+                        if (utcTime_ == self.utcTime)
+                        {
+                            // 更新最后的包序号
+                            int serialNum =  (value[0] & 0xf0 ) >> 4;
+                            self.serialNum = (serialNum -1 >= 0 ? @(serialNum -1):@(0x0f));
+                            DEBUG_METHOD(@"---重复的包----");
+                        }
+                        else
+                        {
+                            int oldSqByte = self.serialNum ? [self.serialNum intValue]:0;
+                            DEBUG_METHOD(@"---{%d:%d}",oldSqByte,((value[0] & 0xF0)>>4));
+                            if ( ((oldSqByte + 1) & 0x0F) != ((value[0] & 0xF0)>>4))
+                            {
+                                DEBUG_METHOD(@"---上下报的序号不连续---");
+                                if (self.packetArray.count > 0)
+                                {
+                                    [self.packetArray removeAllObjects];
+                                }
+                                [self writeResponseWithperipheral:peripheral sequenceNum:hByte ackByte:0x01];
+                                return;
+                            }
+                        }
                     }
-                    [self didReceiveSportsData:characteristic.value utcTime:_sportsDataUtcTime];
                 }
-            }
-        }
-        
-        /* Packet for sleeping data*/
-        if( (cValue[0] & 0x0f) == 0x05 )
-        {
-            DEBUG_METHOD(@"--0xd5---Packet for sleeping data----");
-            if ( ![self resultOfCheckSum:cValue length:data.length])
-            {
-                DEBUG_STR(@"----【%s】-0xd5-检验和出错----",__FUNCTION__);
-                [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x01];
+
+                // 对收到的包进行校验和校验，有错误则重发
+                BOOL checkError = NO;
+                for (int i = 0; i < self.packetArray.count; i++)
+                {
+                    NSData *tdata = [self.packetArray objectAtIndex:i];
+                    Byte value[100] = {0};
+                    [tdata getBytes:&value length:tdata.length];
+                    if (![self resultOfCheckSum:value length:tdata.length])
+                    {
+                        checkError = YES;
+                        break;
+                    }
+                }
+                if (checkError)
+                {
+                    DEBUG_METHOD(@"---收到的包校验和出错----");
+                    if (self.packetArray.count > 0)
+                    {
+                        [self.packetArray removeAllObjects];
+                    }
+                    [self writeResponseWithperipheral:peripheral sequenceNum:hByte ackByte:0x01];
+                    return;
+                }
+                
+                // 校验收到包数是否完整
+                if (self.packetArray.count != packets)
+                {
+                    DEBUG_METHOD(@"---收到的包不完整---");
+                    if (self.packetArray.count > 0)
+                    {
+                        [self.packetArray removeAllObjects];
+                    }
+                    [self writeResponseWithperipheral:peripheral sequenceNum:hByte ackByte:0x01];
+                    return;
+                }
+                
+                //对收到的数据包进行序号校验
+                for (int i = 0; i < self.packetArray.count; i++)
+                {
+                    NSData *tdata = [self.packetArray objectAtIndex:i];
+                    Byte value[100] = {0};
+                    [tdata getBytes:&value length:tdata.length];
+                    if (i+1 < self.packetArray.count)
+                    {
+                        NSData *data1 = [self.packetArray objectAtIndex:i+1];
+                        Byte value1[100] = {0};
+                        [data1 getBytes:&value1 length:data1.length];
+                        if ( ((((value[0] & 0xF0)>>4) + 1) & 0x0F) != ((value1[0] & 0xF0)>>4) )
+                        {
+                            checkError = YES;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if ( ((((value[0] & 0xF0)>>4) + 1) & 0x0F) != serialNo )
+                        {
+                            checkError = YES;
+                            break;
+                        }
+                    }
+                }
+                
+                if (checkError)
+                {
+                    DEBUG_METHOD(@"---收到的包内部序号校验出错---");
+                    if (self.packetArray.count > 0)
+                    {
+                        [self.packetArray removeAllObjects];
+                    }
+                    [self writeResponseWithperipheral:peripheral sequenceNum:hByte ackByte:0x01];
+                    return;
+                }
+                
+                
+                
+                // 校验没有问题,输出数据
+                DEBUG_METHOD(@"---输出数据---");
+                self.serialNum = @(serialNo);
+                if (self.packetArray.count > 0)
+                {
+                    NSData *data = (NSData*)[self.packetArray firstObject];
+                    Byte value[100] = {0};
+                    [data getBytes:&value length:data.length];
+                    
+                    if (value[1] == 0x01)
+                    {
+                        self.utcTime = (value[2]<<24) + (value[3]<<16) + (value[4]<<8) + value[5];
+                    }
+                }
+                [self didReceiveSportsPackage:self.packetArray];
+                if (self.packetArray.count > 0)
+                {
+                    [self.packetArray removeAllObjects];
+                }
+                [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
             }
             else
             {
-                if (cValue[1] == 0x03)
+                if (![self.packetArray containsObject:characteristic.value])
                 {
-                    [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
-                }
-                
-                if (cValue[1] == 0x01 || cValue[1] == 0x02 )
-                {
-                    if ( cValue[1] == 0x01)
-                    {
-                        _sleepDataUtcTime =  (cValue[2]<<24) + (cValue[3]<<16) + (cValue[4]<<8) + cValue[5];
-                    }
-                    
-                    if ( cValue[1] == 0x02 )
-                    {
-                        _sleepDataUtcTime += 13*5*60;
-                    }
-                    [self didReceiveSleepData:characteristic.value utcTime:_sleepDataUtcTime];
+                    [self.packetArray addObject:characteristic.value];
                 }
             }
         }
@@ -481,7 +601,7 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
         /* Transfer Complete,the iphone app can disconnect from bracelet*/
         if( (cValue[0] & 0x0f) == 0x06 )
         {
-            DEBUG_METHOD(@"--0xd6---Transfer Complete,the iphone app can disconnect from bracelet----");
+            DEBUG_METHOD(@"--0xd6---Transfer Complete,the iphone app can disconnect from bracelet----%@",characteristic.value);
             if ( [self resultOfCheckSum:cValue length:data.length])
             {
                 [self writeResponseWithperipheral:peripheral sequenceNum:highByte ackByte:0x00];
@@ -494,6 +614,10 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
             [self updateBleStatus:BluetoothStatusCompleteTransfer];
             [self didCompleteBluetoothDataTransmission];
             [self cleanup];
+            
+            // reset数据
+            [self.packetArray removeAllObjects];
+            
         }//if
     }
 }
@@ -565,24 +689,24 @@ static NSString * const kWriteCharacteristicUUID = @"FC21";
 #pragma mark -
 #pragma mark subClass override
 
+- (void)didReceiveSportsPackage:(NSMutableArray*)dataArray
+{
+    DEBUG_METHOD(@"--SPPackage--%@",dataArray);
+}
+
+- (void)didReceiveSleepPackage:(NSMutableArray*)dataArray
+{
+    DEBUG_METHOD(@"--SLPackage--%@",dataArray);
+}
+
 - (void)didReceiveSynchData:(UInt32)steps distance:(UInt32)distance calorie:(UInt32)calorie utcTime:(UInt32)UTCTime
-{
-    DEBUG_METHOD(@"-----{\n steps:%u \n distance:%u \n calorie:%u \n }",(unsigned int)steps,(unsigned int)distance,(unsigned int)calorie);
-}
-
-- (void)didReceiveSportsData:(NSData*)sportsData utcTime:(UInt32)utcTime
-{
-    
-}
-
-- (void)didReceiveSleepData:(NSData*)sleepData utcTime:(UInt32)utcTime
 {
     
 }
 
 - (void)didReceiveUserInfo:(NSMutableDictionary*)params
 {
-    DEBUG_METHOD(@"----%s---[%@]",__FUNCTION__,params);
+    
 }
 
 - (BOOL)shouldSynchUpdateUTCTime

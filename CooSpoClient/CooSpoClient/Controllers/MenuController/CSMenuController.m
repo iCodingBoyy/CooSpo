@@ -88,7 +88,8 @@
 {
     if (indexPath.row == 0)
     {
-        UINavigationController *cooSpoNavVC = [CSNavigationController shared];
+//        UINavigationController *cooSpoNavVC = [CSNavigationController shared];
+        UINavigationController *cooSpoNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CooSpoController"];
         [self.sideController setRootViewController:cooSpoNavVC animated:YES];
     }
     else if (indexPath.row == 1)
@@ -96,7 +97,7 @@
         UINavigationController *tGoalNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CSTGoalController"];
         [self.sideController setRootViewController:tGoalNavVC animated:YES];
     }
-    else if (indexPath.row ==2)
+    else if (indexPath.row == 2)
     {
         UINavigationController *recordsNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CSTabBarController"];
         [self.sideController setRootViewController:recordsNavVC animated:YES];

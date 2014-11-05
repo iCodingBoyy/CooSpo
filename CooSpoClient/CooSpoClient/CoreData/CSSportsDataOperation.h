@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface CSSportsDataOperation : NSOperation
-- (instancetype)initWithData:(NSData*)receiveData utcTime:(UInt32)utcTime;
+- (id)initWithNewData:(NSMutableArray*)array;
 @end

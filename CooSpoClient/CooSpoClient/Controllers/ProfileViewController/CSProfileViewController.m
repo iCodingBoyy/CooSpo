@@ -78,9 +78,8 @@
 - (void)updateUI
 {
     WEAKSELF;STRONGSELF;
-    [[CSCoreData shared]fetchUserInfo:NO result:^(NSDictionary *ret, NSError *error) {
-        NSLog(@"-[%s]--ret---%@",__FUNCTION__,ret);
-        if (!error)
+    [[CSCoreData shared]fetchUserInfo:YES result:^(NSDictionary *ret, NSError *error) {
+        if (ret)
         {
             strongSelf.userInfoDic = ret;
             _sex = [ret[@"sex"]integerValue];
@@ -151,7 +150,7 @@
         if (self.userInfoDic)
         {
             NSInteger weight = [self.userInfoDic[@"weight"]integerValue];
-            cell.resultLabel.text = [NSString stringWithFormat:@"%d kg",weight/10];
+            cell.resultLabel.text = [NSString stringWithFormat:@"%d kg",(NSInteger)(weight/10)];
         }
     }
     else

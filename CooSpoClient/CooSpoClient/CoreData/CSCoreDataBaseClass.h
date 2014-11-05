@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *masterManagedObjectContext;
 @property (nonatomic, strong) NSManagedObjectContext *mainManagedObjectContext;
 @property (nonatomic, strong) NSManagedObjectContext *backReadManagedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *sReadManagedObjectContext;
 @property (nonatomic, strong) NSManagedObjectContext *sportsManagedObjectContext;
 @property (nonatomic, strong) NSManagedObjectContext *sleepManagedObjectContext;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;

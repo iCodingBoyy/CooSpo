@@ -8,6 +8,7 @@
 
 #import "CSBluetoothSDK.h"
 #import "CSCoreData.h"
+#import "CooSpoDefine.h"
 
 @interface CSBluetooth : CSBluetoothSDK
 @property (nonatomic, copy) dispatch_block_t completeBlock;

@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CSRSportsContentView.h"
+#import "CSRSportsGraphView.h"
 
 @interface CSRSportsTableViewCell : UITableViewCell
 @property (nonatomic, strong) CSRSportsContentView *scView;
+@property (nonatomic, strong) CSRSportsGraphView *graphView;
+@property (nonatomic, strong) UIScrollView *graphScrollView;
 @end

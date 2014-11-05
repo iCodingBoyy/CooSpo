@@ -8,8 +8,12 @@
 
 #import "CSSportsViewController.h"
 #import "CSRSportsTableViewCell.h"
+#import "CSBluetooth.h"
 
 @interface CSSportsViewController() <UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *listArray;
+
 @end
 
 @implementation CSSportsViewController
@@ -23,11 +27,27 @@
     return self;
 }
 
+- (void)loadDailyDetailData
+{
+    [[CSCoreData shared]fetchDailyDetailRecord:YES result:^(NSArray *ret, NSError *error) {
+        if (ret)
+        {
+            WEAKSELF;STRONGSELF;
+            strongSelf.listArray = ret;
+            [strongSelf.tableView reloadData];
+        }
+    }];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.933 green:0.933 blue:0.933 alpha:1.0];
+    [self loadDailyDetailData];
+    [[CSBluetooth shared]completeTransmission:^{
+        WEAKSELF;
+        [weakSelf loadDailyDetailData];
+    }];
 }
 #pragma mark -
 #pragma mark UITableView
@@ -39,7 +59,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.listArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -56,6 +76,15 @@
 {
     static NSString *cellIdentifier = @"Cell";
     CSRSportsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    if (indexPath.row < self.listArray.count)
+    {
+        NSDictionary *dic = [self.listArray objectAtIndex:indexPath.row];
+        if (dic)
+        {
+            [cell.scView setDateString:dic[@"date"]];
+            [cell.graphView execUpdate:dic[@"value"]];
+        }
+    }
     return cell;
 }
 

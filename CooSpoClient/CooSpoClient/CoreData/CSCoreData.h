@@ -9,10 +9,8 @@
 #import "CSCoreDataBaseClass.h"
 #import "UserInfoEntity.h"
 #import "SwParamsEntity.h"
-#import "RecentSynchEntity.h"
 #import "DailyGoalsEntity.h"
 #import "SleepDataEntity.h"
-#import "SynchDataEntity.h"
 #import "SportsDataEntity.h"
 #import "CSSportsDataOperation.h"
 #import "CSSleepDataOperation.h"
@@ -22,10 +20,6 @@
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 - (void)initializeDefaultParams;
-// 最后同步记录
-- (void)insertOrUpdateLastSynchRecord:(NSDictionary*)params;
-- (NSDictionary*)fetchLastSynchRecord:(BOOL)asynchQuery result:(void(^)(NSDictionary *ret, NSError *error))block;
-
 
 // 用户资料管理
 - (void)insertOrUpdateUserInfo:(NSDictionary *)params;
@@ -38,15 +32,22 @@
 
 // 每日目标设定管理
 - (void)insertOrUpdateTGoal:(NSDictionary*)params;
-- (NSDictionary*)fetchLastGoal:(BOOL)asynchFetch result:(void(^)(NSDictionary *ret, NSError *error))block;
-- (NSArray*)fetchTGoal:(BOOL)asynchFetch result:(void(^)(NSArray *ret, NSError *error))block;
+- (NSArray*)fetchAllGoals:(BOOL)asynch result:(void(^)(NSArray *ret, NSError *error))block;
+- (NSDictionary*)fetchLateLyGoal:(BOOL)asynch result:(void(^)(NSDictionary *ret, NSError *error))block;
+- (NSDictionary*)fetchGoal:(BOOL)asynch byDate:(NSDate*)date result:(void(^)(NSDictionary *ret, NSError *error))block;
 
-// 每日记录管理
-- (void)insertOrUpdateDailySynchRecord:(NSDictionary *)params;
-- (NSDictionary*)fetchTotalRecords:(BOOL)asynchQuery result:(void(^)(NSDictionary *ret, NSError *error))block;
-- (NSDictionary*)fetchSynchRecord:(BOOL)asynchQuery byDate:(NSDate*)date result:(void (^)(NSDictionary *ret, NSError *error))block;
+- (NSDictionary*)fetchSumOfSportsData:(BOOL)asynch result:(void(^)(NSDictionary *ret, NSError *error))block;
+- (NSArray*)fetchDailyRecord:(BOOL)asynch result:(void(^)(NSArray *ret, NSError *error))block;
+- (NSDictionary*)fetchDailySumOfSportsData:(BOOL)asynch byDate:(NSDate*)date result:(void(^)(NSDictionary *ret, NSError *error))block;
+
+// 查询一天的每15分钟的详细记录
+- (NSArray*)fetchDailyDetailRecord:(BOOL)asynch result:(void (^)(NSArray *ret, NSError *error))block;
+
+// 查询每日睡眠统计记录
+
+- (NSArray*)fetchDaliySleepData:(BOOL)asynch stTime:(NSString*)stTime spTime:(NSString*)spTime result:(void (^)(NSArray *ret, NSError *error))block;
 
 // 运动记录管理
-- (void)insertNewSportData:(NSData*)data utcTime:(UInt32)utcTime;
-- (void)insertNewSleepData:(NSData*)data utcTime:(UInt32)utcTime;
+- (void)insertNewSleepData:(NSMutableArray*)dataArray;
+- (void)insertNewSportData:(NSMutableArray*)dataArray;
 @end

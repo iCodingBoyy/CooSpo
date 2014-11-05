@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface CSSleepDataOperation : NSOperation
-- (id)initWithData:(NSData*)receiveData_ utcTime:(UInt32)utcTime_;
+- (id)initWithNewData:(NSMutableArray*)array;
 @end

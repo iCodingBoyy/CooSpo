@@ -2,7 +2,7 @@
 //  DailyGoalsEntity.h
 //  CooSpoClient
 //
-//  Created by 马远征 on 14-10-16.
+//  Created by 马远征 on 14/10/24.
 //  Copyright (c) 2014年 马远征. All rights reserved.
 //
 
@@ -12,7 +12,8 @@
 
 @interface DailyGoalsEntity : NSManagedObject
 
-@property (nonatomic, retain) NSString * dateTime;
 @property (nonatomic, retain) NSNumber * dailyGoals;
+@property (nonatomic, retain) NSString * dateTime;
+@property (nonatomic, retain) NSDate * utcTime;
 
 @end

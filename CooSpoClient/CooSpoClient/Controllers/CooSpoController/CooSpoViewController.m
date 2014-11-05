@@ -38,74 +38,99 @@
     return _dateFormatter;
 }
 
+
+#pragma mark -
+#pragma mark Notify
+
 - (void)receiveGoalUpdateNotify
 {
-    NSLog(@"__%s__",__func__);
+    DEBUG_METHOD(@"__%s__",__func__);
     [self updateUI];
+}
+
+- (void)receiveUtcTimeNotify
+{
+    [self updateLastSynchTime];
+}
+
+- (void)registerNotify
+{
+    NSNotificationCenter *noteCenter = [NSNotificationCenter defaultCenter];
+    [noteCenter removeObserver:self];
+    [noteCenter addObserver:self selector:@selector(receiveGoalUpdateNotify)
+                       name:@"Event_Goal_Setting_notify" object:nil];
+    
+    [noteCenter addObserver:self selector:@selector(receiveUtcTimeNotify)
+                       name:@"Event_LastSynch_Time_Update_Notify" object:nil];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveGoalUpdateNotify) name:@"Event_Goal_Setting_notify" object:nil];
+    [self registerNotify];
     [self.synchStatusView setLastSynchTime:@"尚未同步数据"];
     [self connectDevice];
+    [self updateLastSynchTime];
     [self updateUI];
+}
+
+
+- (void)updateLastSynchTime
+{
+    // 读取最后同步时间
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *number = [userDefaults objectForKey:@"lastSynch.utcTime"];
+    if (number)
+    {
+        NSTimeInterval utcTime = [number doubleValue];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:utcTime];
+        NSString *dateString = [self.dateFormatter stringFromDate:date];
+        self.synchStatusView.lastSynchTime = [NSString stringWithFormat:NSLocalizedString(@"最后同步时间:%@", nil) ,dateString];
+        self.synchStatusView.synchStatus = NSLocalizedString(@"蓝牙设备未连接", nil);
+    }
 }
 
 - (void)updateUI
 {
-    WEAKSELF;
-    STRONGSELF;
-    // 查询最后同步时间
-    [[CSCoreData shared]fetchLastSynchRecord:NO result:^(NSDictionary *ret, NSError *error) {
-        if (ret)
-        {
-            NSTimeInterval utcTime = [ret[@"utcTime"]doubleValue];
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:utcTime];
-            NSString *dateString = [strongSelf.dateFormatter stringFromDate:date];
-            strongSelf.synchStatusView.lastSynchTime = [NSString stringWithFormat:NSLocalizedString(@"最后同步时间:%@", nil) ,dateString];
-            strongSelf.synchStatusView.synchStatus =NSLocalizedString(@"蓝牙设备未连接", nil);
-        }
-    }];
-    
+    WEAKSELF; STRONGSELF;
     //  查询当日运动记录
-    [[CSCoreData shared]fetchSynchRecord:NO byDate:[NSDate date] result:^(NSDictionary *ret, NSError *error) {
-        if (ret)
-        {
-            [strongSelf.synchResultView setSteps:[ret[@"steps"] integerValue]];
-            [strongSelf.synchResultView setDistance:[ret[@"distance"] integerValue]];
-            [strongSelf.synchResultView setCalories:[ret[@"calorie"] integerValue]];
-        }
-    }];
-    
-    // 查询目标与完成情况
-    [[CSCoreData shared]fetchTGoal:NO result:^(NSArray *ret, NSError *error) {
-        
-        NSUInteger steps = 100000;
-        if (ret && ret.count > 0)
-        {
-            NSDictionary *dict = [ret lastObject];
-            if (dict)
-            {
-                steps = [dict[@"dailyGoals"] integerValue];
-            }
-        }
-        NSUInteger cSteps = strongSelf.synchResultView.steps;
-        CGFloat fillRate = (CGFloat)cSteps/(CGFloat)steps;
-        NSString *fillRateString = [NSString stringWithFormat:@"%.5f",fillRate];
-        [strongSelf.finishGoalView setFillRate:fillRateString];
-        [strongSelf.finishGoalView setGoalSteps:steps];
+    [[CSCoreData shared]fetchDailySumOfSportsData:YES byDate:[NSDate date]
+                                           result:^(NSDictionary *ret, NSError *error) {
+       if (ret)
+       {
+           dispatch_async(dispatch_get_main_queue(), ^{
+           [strongSelf.synchResultView setSteps:[ret[@"sum.steps"]unsignedIntValue]];
+           [strongSelf.synchResultView setDistance:[ret[@"sum.distance"]unsignedIntValue]];
+           [strongSelf.synchResultView setCalories:[ret[@"sum.calorie"]unsignedIntValue]];
+               
+               [[CSCoreData shared]fetchLateLyGoal:YES result:^(NSDictionary *ret, NSError *error) {
+                   NSInteger goal = 100000;
+                   if (ret && ret[@"dailyGoals"])
+                   {
+                       goal = [ret[@"dailyGoals"] integerValue];
+                   }
+                   CGFloat fillRate = (CGFloat)strongSelf.synchResultView.steps*100/goal;
+                   NSString *fillRateString = [NSString stringWithFormat:@"%.3f",fillRate];
+                   
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       [strongSelf.finishGoalView setGoalSteps:goal];
+                       [strongSelf.finishGoalView setFillRate:fillRateString];
+                   });
+                   
+               }];
+           });
+       }//if
     }];
     
     // 查询历史总记录
-    [[CSCoreData shared]fetchTotalRecords:NO result:^(NSDictionary *ret, NSError *error) {
+    [[CSCoreData shared]fetchSumOfSportsData:YES result:^(NSDictionary *ret, NSError *error) {
         if (ret)
         {
-            [strongSelf.totalSumView setTotalSteps:[ret[@"steps"]unsignedIntValue]];
-            [strongSelf.totalSumView setTotalDistance:[ret[@"distance"]unsignedIntValue]];
-            [strongSelf.totalSumView setTotalCalories:[ret[@"calorie"]unsignedIntValue]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            [strongSelf.totalSumView setTotalSteps:[ret[@"sum.steps"]unsignedIntValue]];
+            [strongSelf.totalSumView setTotalDistance:[ret[@"sum.distance"]unsignedIntValue]];
+            [strongSelf.totalSumView setTotalCalories:[ret[@"sum.calorie"]unsignedIntValue]];
+            });
         }
     }];
 }

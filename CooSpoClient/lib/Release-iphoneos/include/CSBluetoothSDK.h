@@ -28,12 +28,13 @@ typedef void (^BluetoothStatusBlock)(BluetoothStatus status);
 + (id)shared;
 - (void)startScaning:(BluetoothStatusBlock)block;
 - (void)didReceiveSynchData:(UInt32)steps distance:(UInt32)distance calorie:(UInt32)calorie utcTime:(UInt32)utcTime;
-- (void)didReceiveSportsData:(NSData*)sportsData utcTime:(UInt32)utcTime;
-- (void)didReceiveSleepData:(NSData*)sleepData utcTime:(UInt32)utcTime;
 - (void)didReceiveUserInfo:(NSMutableDictionary*)params;
 - (BOOL)shouldSynchUpdateUTCTime;
 - (NSDictionary*)subClassFetchSWParams;
 - (NSDictionary*)subClassFetchUserInfo;
 - (void)didSuccessUpdateSWParams;
 - (void)didCompleteBluetoothDataTransmission;
+
+- (void)didReceiveSportsPackage:(NSMutableArray*)dataArray;
+- (void)didReceiveSleepPackage:(NSMutableArray*)dataArray;
 @end

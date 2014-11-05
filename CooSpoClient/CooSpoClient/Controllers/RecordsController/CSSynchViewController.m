@@ -8,15 +8,26 @@
 
 #import "CSSynchViewController.h"
 #import "CSRSynchTableViewCell.h"
-#import "CSCoreData.h"
+#import "CSBluetooth.h"
 
-@interface CSSynchViewController() <UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate>
-{
-    NSFetchedResultsController *_fetchedResultsController;
-}
+@interface CSSynchViewController() <UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSArray *listArray;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (strong, nonatomic) NSArray *utcArray;
 @end
 
 @implementation CSSynchViewController
+
+- (NSDateFormatter*)dateFormatter
+{
+    if (_dateFormatter == nil)
+    {
+        _dateFormatter = [[NSDateFormatter alloc]init];
+    }
+    return _dateFormatter;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -27,43 +38,29 @@
     return self;
 }
 
+- (void)loadSportsData
+{
+    WEAKSELF;STRONGSELF;
+    [[CSCoreData shared]fetchAllGoals:YES result:^(NSArray *ret, NSError *error) {
+        strongSelf.utcArray = ret;
+        [[CSCoreData shared]fetchDailyRecord:YES result:^(NSArray *ret, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                strongSelf.listArray = ret;
+                [strongSelf.tableView reloadData];
+            });
+        }];
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.937 green:0.937 blue:0.937 alpha:1.0];
-}
-
-- (NSFetchedResultsController*)fetchedResultsController
-{
-    if (_fetchedResultsController != nil)
-    {
-        return _fetchedResultsController;
-    }
-    NSManagedObjectContext *context = [[CSCoreData shared]mainManagedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SynchDataEntity"
-                                              inManagedObjectContext:context];
-    
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"utcTime" ascending:NO];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                    managedObjectContext:context
-                                                                      sectionNameKeyPath:nil
-                                                                               cacheName:nil];
-    _fetchedResultsController.delegate = self;
-    
-    NSError *error = NULL;
-    if (![_fetchedResultsController performFetch:&error])
-    {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
-    
-    return _fetchedResultsController;
+    [self loadSportsData];
+    [[CSBluetooth shared]completeTransmission:^{
+        WEAKSELF;
+        [weakSelf loadSportsData];
+    }];
 }
 
 
@@ -72,13 +69,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id  sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return self.listArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -95,18 +91,45 @@
 {
     static NSString *cellIdentifier = @"Cell";
     CSRSynchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    SynchDataEntity *entity = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",entity.utcTime];
-    [cell.synchView setSteps:[entity.steps integerValue]];
-    
-    CGFloat distanceValue = (CGFloat)[entity.distance integerValue]/100;
-    NSString *distanceString = [NSString stringWithFormat:@"%.1f",distanceValue];
-    [cell.synchView setDistance:distanceString];
-    
-    CGFloat caloriesValue = (CGFloat)[entity.calorie integerValue]/10;
-    NSString *caloriesString = [NSString stringWithFormat:@"%.1f",caloriesValue];
-    [cell.synchView setCalories:caloriesString];
-    [cell.synchView setFinishGoals:[entity.complete boolValue]];
+    if (indexPath.row < self.listArray.count)
+    {
+        NSDictionary *dic = [self.listArray objectAtIndex:indexPath.row];
+        
+        CGFloat distanceValue = (CGFloat)[dic[@"distance"] integerValue]/100;
+        NSString *distanceString = [NSString stringWithFormat:@"%.1f",distanceValue];
+        [cell.synchView setDistance:distanceString];
+        
+        CGFloat caloriesValue = (CGFloat)[dic[@"calorie"] integerValue]/10;
+        NSString *caloriesString = [NSString stringWithFormat:@"%.1f",caloriesValue];
+        [cell.synchView setCalories:caloriesString];
+        
+        [cell.synchView setSteps:[dic[@"steps"] integerValue]];
+        
+        cell.textLabel.text =  dic[@"date"];
+        
+        NSString *dateString = [NSString stringWithFormat:@"%@ 23:59:59",dic[@"date"]];
+        [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *date = [self.dateFormatter dateFromString:dateString];
+        
+        NSInteger goals = 100000;
+        if (self.utcArray && self.utcArray.count > 0)
+        {
+            NSArray *array = [self.utcArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"utcTime <= %@",date]];
+            if (array && array.count > 0)
+            {
+                goals = [((NSDictionary*)[array firstObject])[@"dailyGoals"]integerValue];
+            }
+        }
+        
+        if ([dic[@"steps"] integerValue] < goals)
+        {
+            [cell.synchView setFinishGoals:NO];
+        }
+        else
+        {
+            [cell.synchView setFinishGoals:YES];
+        }
+    }
     return cell;
 }
 @end
